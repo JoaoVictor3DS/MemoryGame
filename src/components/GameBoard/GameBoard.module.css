@@ -1,0 +1,26 @@
+h2 {
+    text-align: center;
+    align-items: center;
+}
+
+table {
+    max-width: fit-content;
+    margin: 100px auto;
+}
+
+tr {
+    display: flex;
+    flex-direction: row;
+}
+
+td {
+    margin: 1px;
+}
+
+.buttons {
+    transition: all 0.5s;
+}
+
+.buttons:hover {
+    scale: 1.05;
+}
