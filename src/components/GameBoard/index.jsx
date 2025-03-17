@@ -104,9 +104,7 @@ export const GameBoard = () => {
                 const index = i * rowSize + j;
                 row.push(
                     <td key={index}>
-                        <button className={styles.buttons} onClick={() => click(index)} disabled={disableButtons}>
-                            <Card className={styles.card} id={index} src={visibleCards[index]} />
-                        </button>
+                        <Card src={ocultCard(index)} />
                     </td>
                 );
             }
