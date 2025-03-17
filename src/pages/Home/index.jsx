@@ -7,7 +7,7 @@ import './Home.module.css'
 export const Home = () => {
     return (
         <div>
-            <h1>Welcome to My Chess Memory Game</h1>
+            <h1>Welcome to My Memory Game</h1>
             <div>
                 <GameBoard />
             </div>
