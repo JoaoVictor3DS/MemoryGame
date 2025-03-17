@@ -16,11 +16,3 @@ tr {
 td {
     margin: 1px;
 }
-
-.buttons {
-    transition: all 0.5s;
-}
-
-.buttons:hover {
-    scale: 1.05;
-}

@@ -41,12 +41,12 @@ export const Card = (props) => {
                         alignItems: "center",
                     }}
                 >
-                    <img src={unknown} alt="Front" width="50px" height="50px" />
+                    <img src={unknown} alt="Front" width="70%" height="70%" />
                 </motion.div>
 
                 {/* Back Side */}
                 <motion.div
-                    className="card-back bg-primary"
+                    className="card-back bg-success"
                     style={{
                         position: "absolute",
                         backfaceVisibility: "hidden",
@@ -58,7 +58,7 @@ export const Card = (props) => {
                         alignItems: "center",
                     }}
                 >
-                    <img src={props.src} alt="Back" width="50px" height="50px" />
+                    <img src={props.src} alt="Back" width="70%" height="70%" />
                 </motion.div>
             </motion.div>
         </motion.div>
