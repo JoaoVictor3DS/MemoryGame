@@ -1,19 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import unknown from "/unknown.svg";
+import './Card.module.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export const Card = (props) => {
-    const [isFlipped, setIsFlipped] = useState(false);
-
-    const toggleFlipped = () => {
-        setIsFlipped(!isFlipped)
-    }
+    const [isFlipped, setIsFlipped] = useState(props.flipped);
 
     return (
         <motion.div
-            className={'card-container'}
+            className="card-container"
             style={{
                 width: "100px",
                 height: "100px",
@@ -22,9 +19,8 @@ export const Card = (props) => {
         >
             <motion.div
                 className="card"
-                animate={{ rotateY: isFlipped ? 180 : 0 }} // Animates the flip
+                animate={{ rotateY: props.flipped ? 180 : 0 }} // Animates the flip
                 transition={{ duration: 1 }} // Controls the flip speed
-                onClick={toggleFlipped}
                 style={{
                     width: "100%",
                     height: "100%",
@@ -65,6 +61,6 @@ export const Card = (props) => {
                     <img src={props.src} alt="Back" width="50px" height="50px" />
                 </motion.div>
             </motion.div>
-        </motion.div >
+        </motion.div>
     );
 };

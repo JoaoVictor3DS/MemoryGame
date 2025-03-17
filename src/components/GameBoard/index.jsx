@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import styles from './GameBoard.module.css';
 
 import { Card } from '../Card';
-import unknown from '/unknown.svg';
 import pon from '/pieces/pon.svg';
 import king from '/pieces/king.svg';
 import queen from '/pieces/queen.svg';
@@ -30,66 +29,56 @@ shufCardIcons = shuffle(shufCardIcons);
 export const GameBoard = () => {
     const [flipCount, setFlipCount] = useState(0);
     const [scoreCount, setScoreCount] = useState(0);
-    const [visibleCards, setVisibleCards] = useState(Array(12).fill(unknown));
-    const [prevTry, setPrevTry] = useState(null);
+    const [flippedCards, setFlippedCards] = useState(Array(12).fill(false));
     const [prevIndex, setPrevIndex] = useState(null);
-    const [disableButtons, setDisableButtons] = useState(false);
-
-    const revealCard = (index) => {
-        const newVisibleCards = [...visibleCards];
-        newVisibleCards[index] = ocultCard(index);
-        setVisibleCards(newVisibleCards);
-    };
-
-    const hideCards = (indexes) => {
-        const newVisibleCards = [...visibleCards];
-        indexes.forEach((i) => {
-            newVisibleCards[i] = unknown;
-        });
-        setVisibleCards(newVisibleCards);
-    };
+    const [disabledButtons, setDisabledButtons] = useState(false);
 
     const ocultCard = (n) => {
         return shufCardIcons[n];
     };
 
+    const toggleCard = (i) => {
+        const newFlippedCards = flippedCards;
+        newFlippedCards[i] = !flippedCards[i];
+        setFlippedCards(newFlippedCards);
+    };
+
     const equalCards = (indexes) => {
         let cards = [];
-        indexes.forEach((i) => { cards.push(ocultCard(i)) })
-        return cards.every((i) => i === cards[0])
+        indexes.forEach((i) => { cards.push(ocultCard(i)); });
+        return cards.every((i) => i === cards[0]);
     };
 
     const isFirstTry = () => {
-        return prevTry === null;
+        return prevIndex === null;
     };
 
-    const processTries = (indexes) => {
-        setDisableButtons(true);
+    const processTries = (prev, act) => {
+        setDisabledButtons(true);
 
-        if (equalCards(indexes)) {
+        if (equalCards([prev, act])) {
             setScoreCount(scoreCount + 1);
-            setDisableButtons(false);
+            setDisabledButtons(false);
         } else {
             setTimeout(() => {
-                hideCards(indexes);
-                setDisableButtons(false);
+                toggleCard(prev);
+                toggleCard(act);
+                setDisabledButtons(false);
             }, 1000);
         }
 
-        setPrevTry(null);
         setPrevIndex(null);
     };
 
-    const click = (index) => {
-        if (visibleCards[index] === unknown && !disableButtons) {
-            revealCard(index);
+    const handleClick = (i) => {
+        if (flippedCards[i] === false && !disabledButtons) {
+            toggleCard(i);
             setFlipCount(flipCount + 1);
 
             if (isFirstTry()) {
-                setPrevTry(ocultCard(index));
-                setPrevIndex(index);
+                setPrevIndex(i);
             } else {
-                processTries([prevIndex, index]);
+                processTries(prevIndex, i);
             }
         }
     };
@@ -103,8 +92,8 @@ export const GameBoard = () => {
             for (let j = 0; j < rowSize; j++) {
                 const index = i * rowSize + j;
                 row.push(
-                    <td key={index}>
-                        <Card src={ocultCard(index)} />
+                    <td key={index} onClick={() => handleClick(index)}>
+                        <Card src={ocultCard(index)} flipped={flippedCards[index]} />
                     </td>
                 );
             }
