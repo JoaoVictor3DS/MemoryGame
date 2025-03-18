@@ -18,7 +18,7 @@ export const Card = (props) => {
             }}
         >
             <motion.div
-                className="card"
+                className="card rounded-3"
                 animate={{ rotateY: props.flipped ? 180 : 0 }} // Animates the flip
                 transition={{ duration: 1 }} // Controls the flip speed
                 style={{
@@ -30,7 +30,7 @@ export const Card = (props) => {
             >
                 {/* Front Side */}
                 <motion.div
-                    className="card-front bg-light"
+                    className="card-front rounded-3 bg-transparent"
                     style={{
                         position: "absolute",
                         backfaceVisibility: "hidden", // Ensures only one side is visible
@@ -46,7 +46,7 @@ export const Card = (props) => {
 
                 {/* Back Side */}
                 <motion.div
-                    className="card-back bg-success"
+                    className="card-back rounded-3 bg-success"
                     style={{
                         position: "absolute",
                         backfaceVisibility: "hidden",
