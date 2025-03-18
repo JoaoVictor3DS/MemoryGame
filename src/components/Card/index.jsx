@@ -3,8 +3,6 @@ import { motion } from "framer-motion";
 import unknown from "/unknown.svg";
 import './Card.module.css';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-
 export const Card = (props) => {
     const [isFlipped, setIsFlipped] = useState(props.flipped);
 

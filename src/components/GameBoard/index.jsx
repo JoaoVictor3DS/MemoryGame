@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-
+import { use, useState } from 'react';
 import { Card } from '../Card';
+import { Victory } from '../Victory';
 import pon from '/pieces/pon.svg';
 import king from '/pieces/king.svg';
 import queen from '/pieces/queen.svg';
@@ -31,6 +31,7 @@ export const GameBoard = () => {
     const [flippedCards, setFlippedCards] = useState(Array(CARDS_NUM).fill(false));
     const [prevIndex, setPrevIndex] = useState(null);
     const [disabledButtons, setDisabledButtons] = useState(false);
+    const [victory, setVictory] = useState(false)
 
     const ocultCard = (n) => {
         return shufCardIcons[n];
@@ -58,6 +59,7 @@ export const GameBoard = () => {
         if (equalCards([prev, act])) {
             setScoreCount(scoreCount + 1);
             setDisabledButtons(false);
+            verifyVictory();
         } else {
             setTimeout(() => {
                 toggleCard(prev);
@@ -82,12 +84,27 @@ export const GameBoard = () => {
         }
     };
 
+    const verifyVictory = () => {
+        if (flippedCards.every((i) => i === true)) {
+            setVictory(true)
+        }
+    }
+
+    const renderVictory = () => {
+        if (victory === true) {
+            return (
+                <Victory />
+            )
+        }
+    }
+
     const resetBoard = () => {
         const newFlippedCards = Array(CARDS_NUM).fill(false);
         setFlippedCards(newFlippedCards);
         shufCardIcons = shuffle(shufCardIcons);
         setFlipCount(0);
         setScoreCount(0);
+        setVictory(false);
     }
 
     const rowSize = CARDS_NUM / 3;
@@ -128,6 +145,9 @@ export const GameBoard = () => {
                 <button className="btn btn-warning" onClick={resetBoard}>
                     Reset
                 </button>
+            </div>
+            <div>
+                {renderVictory()}
             </div>
         </div>
     );
