@@ -1,11 +1,18 @@
 export const Victory = () => {
     return (
-        <div className="fixed inset-0 bg-success bg-opacity-50 backdrop-blur-sm text-center m-4">
-            <div className="fs-1">
-                <p>You Wins</p>
-            </div>
-            <div className="fs-5">
-                <a href="/">Reload</a>
+        <div className="d-flex justify-content-center align-items-center vh-100">
+            <div className="p-5 m-4 text-center bg-success bg-opacity-75 rounded-3 shadow-lg">
+                <div className="display-1 fw-bold text-white">
+                    <p>Congratulations!</p>
+                </div>
+                <div className="fs-3 text-white">
+                    <p>You Wined!</p>
+                </div>
+                <div>
+                    <a className="btn btn-primary btn-lg mt-3" href="/">
+                        Restart
+                    </a>
+                </div>
             </div>
         </div>
     );

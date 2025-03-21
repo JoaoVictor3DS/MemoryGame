@@ -60,7 +60,9 @@ export const GameBoard = () => {
             setDisabledButtons(false);
 
             if (verifyVictory()) {
-                setVictory(true);
+                setInterval(() => {
+                    setVictory(true);
+                }, 3000);
             }
         } else {
             setTimeout(() => {
@@ -104,15 +106,6 @@ export const GameBoard = () => {
         }
     }
 
-    const resetBoard = () => {
-        const newFlippedCards = Array(CARDS_NUM).fill(false);
-        setFlippedCards(newFlippedCards);
-        shufCardIcons = shuffle(shufCardIcons);
-        setFlipCount(0);
-        setScoreCount(0);
-        setVictory(false);
-    }
-
     const rowSize = CARDS_NUM / 3;
     const rowCount = CARDS_NUM / 4;
     const renderButtons = () => {
@@ -142,15 +135,15 @@ export const GameBoard = () => {
                     <h2>Score: {scoreCount}</h2>
                 </div>
             </div>
-            <table className="d-flex m-3 p-3 justify-content-center">
+            <table className="d-flex m-1 p-1 justify-content-center">
                 <tbody>
                     {renderButtons()}
                 </tbody>
             </table>
             <div className="m-1 p-1 text-center justify-content-center">
-                <button className="btn btn-warning" onClick={resetBoard}>
+                <a className="btn btn-warning m-1" href="/">
                     Reset
-                </button>
+                </a>
             </div>
             <div>
                 {popupVictory()}
