@@ -8,5 +8,5 @@ export const Victory = () => {
                 <a href="/">Reload</a>
             </div>
         </div>
-    )
+    );
 }

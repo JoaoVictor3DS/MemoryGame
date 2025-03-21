@@ -1,16 +1,15 @@
-import { use, useState } from 'react';
+import { useState } from 'react';
 import { Card } from '../Card';
-import { Victory } from '../Victory';
+import { Navigate } from 'react-router-dom';
+
 import pon from '/pieces/pon.svg';
 import king from '/pieces/king.svg';
 import queen from '/pieces/queen.svg';
 import bishop from '/pieces/bishop.svg';
 import knight from '/pieces/knight.svg';
 import tower from '/pieces/tower.svg';
+import { div } from 'framer-motion/client';
 
-// import './GameBoard.module.css';
-
-// TODO: add ocult icon, ocult incorrect pair, add a timer, add a reset button, add animations
 const CARDS_NUM = 12;
 const ordCardIcons = [pon, king, queen, bishop, knight, tower];
 let shufCardIcons = [].concat(ordCardIcons, ordCardIcons);
@@ -31,8 +30,8 @@ export const GameBoard = () => {
     const [flippedCards, setFlippedCards] = useState(Array(CARDS_NUM).fill(false));
     const [prevIndex, setPrevIndex] = useState(null);
     const [disabledButtons, setDisabledButtons] = useState(false);
-    const [victory, setVictory] = useState(false)
-
+    const [victory, setVictory] = useState(false);
+    
     const ocultCard = (n) => {
         return shufCardIcons[n];
     };
@@ -59,7 +58,10 @@ export const GameBoard = () => {
         if (equalCards([prev, act])) {
             setScoreCount(scoreCount + 1);
             setDisabledButtons(false);
-            verifyVictory();
+
+            if (verifyVictory()) {
+                setVictory(true);
+            }
         } else {
             setTimeout(() => {
                 toggleCard(prev);
@@ -86,15 +88,19 @@ export const GameBoard = () => {
 
     const verifyVictory = () => {
         if (flippedCards.every((i) => i === true)) {
-            setVictory(true)
+            return true;
         }
+        
+        return false;
     }
 
-    const renderVictory = () => {
-        if (victory === true) {
+    const popupVictory = () => {
+        if (victory === true){
             return (
-                <Victory />
-            )
+                <div>
+                    <Navigate to="/victory"/>
+                </div>
+            );
         }
     }
 
@@ -147,7 +153,7 @@ export const GameBoard = () => {
                 </button>
             </div>
             <div>
-                {renderVictory()}
+                {popupVictory()}
             </div>
         </div>
     );
