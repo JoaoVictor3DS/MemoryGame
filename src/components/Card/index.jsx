@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import unknown from "/unknown.svg";
-import './Card.module.css';
 
 export const Card = (props) => {
     const [isFlipped, setIsFlipped] = useState(props.flipped);
