@@ -18,7 +18,7 @@ export const Card = (props) => {
             <motion.div
                 className="card rounded-3"
                 animate={{ rotateY: props.flipped ? 180 : 0 }} // Animates the flip
-                transition={{ duration: 1 }} // Controls the flip speed
+                transition={{ duration: 0.5 }} // Controls the flip speed
                 style={{
                     width: "100%",
                     height: "100%",

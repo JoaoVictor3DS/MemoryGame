@@ -31,7 +31,7 @@ export const GameBoard = () => {
     const [prevIndex, setPrevIndex] = useState(null);
     const [disabledButtons, setDisabledButtons] = useState(false);
     const [victory, setVictory] = useState(false);
-    
+
     const ocultCard = (n) => {
         return shufCardIcons[n];
     };
@@ -62,7 +62,7 @@ export const GameBoard = () => {
             if (verifyVictory()) {
                 setInterval(() => {
                     setVictory(true);
-                }, 3000);
+                }, 1500);
             }
         } else {
             setTimeout(() => {
@@ -92,15 +92,15 @@ export const GameBoard = () => {
         if (flippedCards.every((i) => i === true)) {
             return true;
         }
-        
+
         return false;
     }
 
     const popupVictory = () => {
-        if (victory === true){
+        if (victory === true) {
             return (
                 <div>
-                    <Navigate to="/victory"/>
+                    <Navigate to="/victory" />
                 </div>
             );
         }
